@@ -54,6 +54,10 @@ class Entidade {
         return this.#velocidadeY
     }
 
+    setVelocidadeX(velocidade) {
+        this.#velocidadeX = velocidade
+    }
+
     getAltura() {
         return this.#altura
     }
