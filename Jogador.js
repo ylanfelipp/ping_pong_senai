@@ -6,6 +6,16 @@ class Jogador extends Entidade {
         super(cor, posicaoX, posicaoY, altura, largura)
     }
 
+    desenhar(ctx) {
+        ctx.fillStyle = this.getCor()
+        ctx.fillRect(
+            this.getPosicaoX(),
+            this.getPosicaoY(),
+            this.getLargura(),
+            this.getAltura()
+        )
+    }
+
     moverParaEsquerda() {
         this.setVelocidadeX(-10)
         let posicao = this.getPosicaoX()

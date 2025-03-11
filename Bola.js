@@ -1,40 +1,36 @@
 import { Entidade } from "./Entidade.js"
 
 class Bola extends Entidade {
-    #gravidade
-    #pulando
-    constructor(cor, posicaoX, posicaoY, altura, largura) {
-        super(cor, posicaoX, posicaoY, altura, largura)
-        this.#gravidade = 4
-        this.cacheJogadorPosicaoX = 0
-        this.cacheJogadorPosicaoY = 0
-        this.#pulando = true
+    constructor(cor, posicaoX, posicaoY, radius) {
+        super(cor, posicaoX, posicaoY)
+        this.radius = radius
     }
 
-    getGravidade() {
-        return this.#gravidade
+    desenhar(ctx) {
+        ctx.beginPath()
+        ctx.arc(this.getPosicaoX(), this.getPosicaoY(), 20, 0, Math.PI * 2, false)
+        ctx.strokeStyle = "#fff"
+        ctx.stroke()
     }
 
-    movimentoDaBola() {
-        this.#pulando = true
-        this.setVelocidadeY(-7)
-        let posicao = this.getPosicaoY()
-        posicao += this.getVelocidadeY()
-        this.setVelocidadeY(posicao)
-    }
-
-    atualizaPosicao() {
-        if (this.#pulando) {
-            this.setVelocidadeY(this.getGravidade())
+    atualizaPosicao(ctx) {
+        if (this.getPosicaoX() + this.radius > 800 || this.getPosicaoX() - this.radius > 0) {
+            let velocidadeX = -(this.getVelocidadeY())
+            this.setVelocidadeX(velocidadeX)
         }
-        let posicao = this.getPosicaoY()
-        posicao += this.getVelocidadeY()
-        this.setPosicaoY(posicao)
-        if (this.getPosicaoY() - this.getVelocidadeY() >= 365) {
-            this.setVelocidadeY(0)
-            this.#pulando = false
-            this.setPosicaoY(365)
+
+        if (this.getPosicaoY() + this.radius > 400 || this.getPosicaoY() - 35 > 0) {
+            let velocidadeY = -(this.getVelocidadeY())
+            this.setVelocidadeY(velocidadeY)
         }
+
+        let posicaoX = this.getPosicaoX()
+        posicaoX += this.getVelocidadeX()
+        this.setPosicaoX(posicaoX)
+        let posicaoY = this.getPosicaoY()
+        posicaoY += this.getVelocidadeY()
+        this.setPosicaoY(posicaoY)
+        this.desenhar(ctx)
     }
 }
 

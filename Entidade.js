@@ -21,13 +21,7 @@ class Entidade {
     }
 
     desenhar(ctx) {
-        ctx.fillStyle = this.getCor()
-        ctx.fillRect(
-            this.getPosicaoX(),
-            this.getPosicaoY(),
-            this.getLargura(),
-            this.getAltura()
-        )
+        console.log("passei por aqui")
     }
 
     getPosicaoX() {
